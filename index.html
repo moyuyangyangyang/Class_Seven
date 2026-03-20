@@ -6,6 +6,8 @@
     <title>小七班钱袋子 - 资金公示</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入外部数据文件 -->
+    <script src="data.js"></script>
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- Lucide Icons -->
@@ -38,6 +40,9 @@
                     </template>
                     <template x-if="isAdmin">
                         <div class="flex items-center gap-4">
+                            <button @click="exportData()" class="text-sm bg-blue-100 text-blue-700 px-3 py-1.5 rounded-full font-medium hover:bg-blue-200 flex items-center gap-1 transition-colors">
+                                <i data-lucide="download" class="w-4 h-4"></i> 导出并保存数据
+                            </button>
                             <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">管理员已登录</span>
                             <button @click="logout()" class="text-sm text-gray-500 hover:text-red-500 transition-colors">退出</button>
                         </div>
@@ -282,12 +287,15 @@
                     // 初始化 Lucide 图标
                     lucide.createIcons();
 
-                    // 从 localStorage 加载数据
-                    const savedTotal = localStorage.getItem('c7_total_budget');
-                    const savedRecords = localStorage.getItem('c7_records');
-
-                    this.totalBudget = savedTotal ? parseFloat(savedTotal) : 1000;
-                    this.records = savedRecords ? JSON.parse(savedRecords) : [];
+                    // 统一从外部文件 data.js 加载数据，作为唯一数据源
+                    if (window.classFundData) {
+                        this.totalBudget = window.classFundData.totalBudget || 1000;
+                        this.records = window.classFundData.records || [];
+                    } else {
+                        this.totalBudget = 1000;
+                        this.records = [];
+                    }
+                    
                     this.isAdmin = localStorage.getItem('c7_is_admin') === 'true';
 
                     // 重新创建图标以应对动态内容
@@ -354,9 +362,9 @@
                 saveTotalBudget() {
                     if (confirm(`确认修改总资金为 ${this.newTotalBudget} 元？修改后将同步更新可视化组件。`)) {
                         this.totalBudget = parseFloat(this.newTotalBudget);
-                        localStorage.setItem('c7_total_budget', this.totalBudget);
                         this.showEditTotalModal = false;
                         this.saveLog(`修改了总预算：${this.totalBudget}`);
+                        this.notifyExport();
                     }
                 },
 
@@ -412,8 +420,8 @@
                     // Re-calculate balanceAfter for all records (simplified)
                     this.recalculateBalances();
 
-                    localStorage.setItem('c7_records', JSON.stringify(this.records));
                     this.showAddRecordModal = false;
+                    this.notifyExport();
                 },
 
                 recalculateBalances() {
@@ -437,7 +445,7 @@
                     if (confirm('确定要删除这条动态吗？操作不可撤销。')) {
                         this.records = this.records.filter(r => r.id !== id);
                         this.recalculateBalances();
-                        localStorage.setItem('c7_records', JSON.stringify(this.records));
+                        this.notifyExport();
                     }
                 },
 
@@ -459,7 +467,25 @@
 
                 saveLog(msg) {
                     console.log(`[LOG] ${new Date().toLocaleString()}: ${msg}`);
-                    // Could store logs in localStorage too if needed
+                },
+
+                notifyExport() {
+                    alert('数据已修改！\n请务必点击右上角的【导出并保存数据】按钮下载 data.js，然后替换项目中的旧文件并提交。');
+                },
+
+                exportData() {
+                    const dataObj = {
+                        totalBudget: this.totalBudget,
+                        records: this.records
+                    };
+                    const dataStr = `window.classFundData = ${JSON.stringify(dataObj, null, 4)};`;
+                    const blob = new Blob([dataStr], { type: 'text/javascript' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'data.js';
+                    a.click();
+                    URL.revokeObjectURL(url);
                 }
             }
         }
