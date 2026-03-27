@@ -1,6 +1,16 @@
 window.classFundData = {
-    "totalBudget": 3300,
+    "totalBudget": 3200,
     "records": [
+        {
+            "id": 1774591696681,
+            "operator": "管理员",
+            "amount": -100,
+            "time": "2026-03-25T06:07",
+            "images": [],
+            "remark": "新生喻慈心小朋友补充班费100",
+            "balanceAfter": "2616.52",
+            "totalAtTime": 3200
+        },
         {
             "id": 1773990293925,
             "operator": "管理员",
