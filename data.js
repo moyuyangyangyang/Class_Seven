@@ -1,5 +1,5 @@
 window.classFundData = {
-    "totalBudget": 3200,
+    "totalBudget": 3300,
     "records": [
         {
             "id": 1773990293925,
