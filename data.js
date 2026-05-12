@@ -2,6 +2,16 @@ window.classFundData = {
     "totalBudget": 3200,
     "records": [
         {
+            "id": 1778555571397,
+            "operator": "管理员",
+            "amount": -3465,
+            "time": "2026-05-12T03:10",
+            "images": [],
+            "remark": "六一儿童节活动，统一收集活动经费：\n1️⃣80元/人包含特色美食、奖品礼物、环境布置\n2️⃣25/人化妆费，请外面专业的化妆师\n\n合计：33 * 105 = 3465 （两位小朋友特殊情况不参与）",
+            "balanceAfter": "5301.84",
+            "totalAtTime": 3200
+        },
+        {
             "id": 1778491944088,
             "operator": "管理员",
             "amount": 160,
