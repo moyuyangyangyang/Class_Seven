@@ -4,9 +4,9 @@ window.classFundStore = {
     generatedAt: "2026-07-15T06:26:04.089Z",
     recordCount: 22,
     chunkFiles: [
-        "data/chunks/classFundData.chunk.001.js",
-        "data/chunks/classFundData.chunk.002.js",
-        "data/chunks/classFundData.chunk.003.js",
+        "classFundData.chunk.001.js",
+        "classFundData.chunk.002.js",
+        "classFundData.chunk.003.js",
     ]
 };
 window.classFundDataChunks = [];
