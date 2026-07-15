@@ -685,7 +685,7 @@
                 buildExportBundle() {
                     const chunkGroups = this.splitRecordsIntoChunks(this.records);
                     const chunks = chunkGroups.map((records, index) => ({
-                        fileName: `data/chunks/classFundData.chunk.${String(index + 1).padStart(3, '0')}.js`,
+                        fileName: `classFundData.chunk.${String(index + 1).padStart(3, '0')}.js`,
                         content: this.buildChunkContent(records)
                     }));
 
