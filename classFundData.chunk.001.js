@@ -1,6 +1,16 @@
 window.registerClassFundChunk({
     records: [
         {
+  "id": 1788447956000,
+  "operator": "管理员",
+  "amount": -39.58,
+  "time": "2026-09-03T23:05",
+  "images": [],
+  "remark": "PVC桌布退款 39.58元",
+  "balanceAfter": "1117.54",
+  "totalAtTime": 3200
+},
+        {
   "id": 1788500000000,
   "operator": "管理员",
   "amount": -350,
