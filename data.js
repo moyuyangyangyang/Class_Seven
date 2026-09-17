@@ -1,8 +1,8 @@
 window.classFundStore = {
     version: 1,
     totalBudget: 3200,
-    generatedAt: "2026-09-07T09:40:19.000Z",
-    recordCount: 29,
+    generatedAt: "2026-09-17T06:10:51.000Z",
+    recordCount: 30,
     chunkFiles: [
         "classFundData.chunk.001.js",
         "classFundData.chunk.002.js",
